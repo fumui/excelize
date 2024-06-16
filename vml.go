@@ -802,8 +802,13 @@ func (f *File) addFormCtrlShape(preset formCtrlPreset, col, row int, anchor stri
 	}
 	sp.TextBox.Div.Font = formCtrlText(opts)
 	sp.ClientData.FmlaMacro = opts.Macro
-	if (opts.Type == FormControlCheckBox || opts.Type == FormControlOptionButton) && opts.Checked {
-		sp.ClientData.Checked = 1
+	if opts.Type == FormControlCheckBox || opts.Type == FormControlOptionButton {
+		if opts.CellLink != "" {
+			sp.ClientData.FmlaLink = opts.CellLink
+		}
+		if opts.Checked {
+			sp.ClientData.Checked = 1
+		}
 	}
 	return &sp, sp.addFormCtrl(opts)
 }
